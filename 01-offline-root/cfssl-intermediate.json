@@ -1,0 +1,12 @@
+{
+	"key": {
+		"algo": "ecdsa",
+		"size": 256
+	},
+	"ca": {
+		"pathlen": 0,
+		"pathlenzero": true,
+		"expiry": "42720h"
+	},
+	"CN": "intermediate-cert"
+}
