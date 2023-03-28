@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: allowed-leaf
+  namespace: default
+spec:
+  isCA: false
+  commonName: "example.com"
+  dnsNames: ["example.com", "www.example.com"]
+  secretName: allowed-leaf
+  duration: 36h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: root-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

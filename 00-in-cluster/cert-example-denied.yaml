@@ -1,0 +1,21 @@
+# This cert, if applied in a cluster with the ca-issuer-policy CertificateRequestPolicy
+# should be denied since that policy disallows setting isCA to true.
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: disallowed-nefarious
+  namespace: default
+spec:
+  isCA: true # DANGER!
+  commonName: "example.com"
+  dnsNames: ["example.com", "www.example.com"]
+  secretName: disallowed-nefarious
+  duration: 36h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: root-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io

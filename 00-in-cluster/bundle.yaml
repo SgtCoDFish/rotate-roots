@@ -1,0 +1,13 @@
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: trust-bundle
+spec:
+  sources:
+  - useDefaultCAs: true
+  - configMap:
+      name: "cluster-root"
+      key: "root.pem"
+  target:
+    configMap:
+      key: "root-certs.pem"

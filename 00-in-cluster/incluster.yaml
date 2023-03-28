@@ -16,6 +16,7 @@ spec:
   isCA: true
   commonName: root-certificate
   secretName: root-secret
+  duration: 219000h # about 25 years
   privateKey:
     algorithm: ECDSA
     size: 256
