@@ -54,3 +54,7 @@ kubectl create configmap -n cert-manager cluster-root --from-file=root.pem=myroo
 # create a Bundle using that configmap along with the built-in trust bundle
 kubectl apply -f bundle.yaml
 ```
+
+## Success!
+
+Now move onto [section 2](../02-safe-root-rotation/README.md)!
