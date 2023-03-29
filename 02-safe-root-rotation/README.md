@@ -6,8 +6,9 @@ In this section we'll carry out a rotation of our root certificate, safely and w
 
 ## Requirements
 
-Section 1 - "Initial Private PKI" - should be completed. This example builds upon that example, so if you customised the first steps you'll
-possibly need to customise this section as well.
+You should have installed all the prerequisites from the [repo README](../README.md).
+
+[Section 1](../01-initial-private-pki/README.md) should be completed. This example builds upon that section.
 
 ## Rotation Example
 

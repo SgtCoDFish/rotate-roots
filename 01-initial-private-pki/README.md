@@ -1,6 +1,6 @@
 # Initial Private PKI
 
-Let's get started! With this example, we'll set up a full private PKI in our cluster which is ready to be used in production.
+In this section, we'll set up a full private PKI in our cluster which is ready to be used in production.
 
 Importantly, though, you _can't_ stop here! This is a great start but you need to be able to do rotation to be able to run safely in the long term!
 
@@ -8,38 +8,9 @@ The next section after this one will help with rotation.
 
 ## Requirements
 
-Kubernetes cluster running up-to-date versions of the following:
+You should have installed all the prerequisites from the [repo README](../README.md).
 
-- cert-manager (with default approver disabled)
-- approver-policy
-- trust-manager
-
-⚠️ An existing cert-manager installation might not work for approver-policy; see [the docs](https://cert-manager.io/docs/projects/approver-policy/)
-for details on how to install properly. The instructions below should work!
-
-Note that trust-manager's Helm chart includes a Certificate which you'll need to approve manually.
-
-Installation instructions are given below as a guide, using either [kind](https://kind.sigs.k8s.io/) or whatever cluster you have configured.
-
-```console
-# if you already have a cluster, skip this step
-kind create cluster --name ap
-
-# install cert-manager with approver disabled
-helm upgrade -i -n cert-manager cert-manager jetstack/cert-manager --set extraArgs={--controllers='*\,-certificaterequests-approver'} --set installCRDs=true --create-namespace
-
-# install approver-policy
-helm upgrade -i -n cert-manager cert-manager-approver-policy jetstack/cert-manager-approver-policy --wait
-
-# install trust-manager; this might appear to hang because it'll be waiting for the certificate to be issued.
-# if it hangs, use the command below to approve the CertificateRequest!
-helm upgrade -i -n cert-manager trust-manager jetstack/trust-manager --wait
-
-# approve trust-manager CertificateRequest (this actually approves all certs in the cert-manager namespace; you might want to be more careful in prod)
-kubectl get -n cert-manager cr -o go-template="{{range .items}}{{printf \"%s\n\" .metadata.name}}{{end}}" | xargs -I% cmctl approve -n cert-manager %
-```
-
-## Using the Example: Issuance
+## Creating Issuers and Policy
 
 The expected flow is as follows to demonstrate safe issuance using private PKI:
 
@@ -65,7 +36,7 @@ kubectl apply -f cert-example-denied.yaml
 kubectl delete -f cert-example-denied.yaml
 ```
 
-## Using the Example: Trust
+## Handling Trust
 
 Our certs won't be able to be trusted until they're in a trust store, which is where trust-manager comes in!
 
