@@ -14,7 +14,7 @@ You should have installed all the prerequisites from the [repo README](../README
 
 The expected flow is as follows to demonstrate safe issuance using private PKI:
 
-```console
+```bash
 # create our in-cluster root certificate
 kubectl apply -f incluster.yaml
 
@@ -44,7 +44,7 @@ Note that we don't directly use the Secret which holds the root certificate, ins
 
 See the talk for more details on why.
 
-```console
+```bash
 # get the root certificate we created above and save it to a file
 kubectl get -n cert-manager secrets root-secret -o go-template='{{index .data "tls.crt"}}' | base64 -d > myroot.pem
 

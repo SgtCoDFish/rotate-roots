@@ -29,7 +29,7 @@ Note that trust-manager's Helm chart includes a Certificate which you'll need to
 
 Installation instructions are given below as a guide, using either [kind](https://kind.sigs.k8s.io/) or whatever cluster you have configured.
 
-```console
+```bash
 # if you already have a cluster, skip this step
 kind create cluster --name ap
 

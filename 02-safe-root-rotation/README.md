@@ -18,7 +18,7 @@ We can't rotate our old cert without having something new to rotate in!
 
 We can use the same `selfsigned-issuer` ClusterIssuer from step one to create our new root certificate, in a new Secret:
 
-```console
+```bash
 # create the root, which will need to be approved
 kubectl apply -f newroot.yaml
 
@@ -32,7 +32,7 @@ Without trusting the root it's useless, so we need to add it to our `Bundle`!
 
 Note that - as in step 1 - we don't directly use the Secret which holds the root certificate, instead creating a ConfigMap. This is important! See the talk for more details on why.
 
-```console
+```bash
 kubectl get -n cert-manager secrets root-secret-2 -o go-template='{{index .data "tls.crt"}}' | base64 -d > myroot2.pem
 
 kubectl create configmap -n cert-manager cluster-root-2 --from-file=root.pem=myroot2.pem
@@ -53,7 +53,7 @@ So this step is easy here, but don't expect it to be so easy in production!
 We only have one Certificate which we issued off the old root so we only need to update that one certificate, but again this could
 be more tricky in a production environment.
 
-```console
+```bash
 kubectl apply -f cert-example-updated.yaml
 ```
 
@@ -61,7 +61,7 @@ kubectl apply -f cert-example-updated.yaml
 
 This is simple enough - we simply update the `Bundle` one last time:
 
-```console
+```bash
 kubectl apply -f bundle-final.yaml
 
 # delete old root ConfigMap, just for cleanup
